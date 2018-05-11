@@ -131,7 +131,7 @@ const withConnect = connect(mapStateToProps, mapDispatchToProps);
 
 const withReducer = injectReducer({ key: 'home', reducer });
 const withSaga = injectSaga({ key: 'home', saga });
-const withEpic = injectEpic({ key: 'home', epic });
+const withEpic = injectEpic({ epic });
 
 export default compose(
   withReducer,
