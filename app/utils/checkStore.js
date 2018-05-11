@@ -13,6 +13,7 @@ export default function checkStore(store) {
     getState: isFunction,
     replaceReducer: isFunction,
     runSaga: isFunction,
+    epic$: isObject,
     injectedReducers: isObject,
     injectedSagas: isObject,
   };
