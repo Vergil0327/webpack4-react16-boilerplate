@@ -14,6 +14,7 @@ import { createStructuredSelector } from 'reselect';
 
 import injectReducer from 'utils/injectReducer';
 import injectSaga from 'utils/injectSaga';
+import injectEpic from 'utils/injectEpic';
 import { makeSelectRepos, makeSelectLoading, makeSelectError } from 'containers/App/selectors';
 import H2 from 'components/H2';
 import ReposList from 'components/ReposList';
@@ -24,10 +25,11 @@ import Input from './Input';
 import Section from './Section';
 import messages from './messages';
 import { loadRepos } from '../App/actions';
-import { changeUsername } from './actions';
+import { changeUsername, ping } from './actions';
 import { makeSelectUsername } from './selectors';
 import reducer from './reducer';
 import saga from './saga';
+import epic from './epic';
 
 export class HomePage extends React.PureComponent { // eslint-disable-line react/prefer-stateless-function
   /**
@@ -82,6 +84,8 @@ export class HomePage extends React.PureComponent { // eslint-disable-line react
               </label>
             </Form>
             <ReposList {...reposListProps} />
+
+            <button onClick={this.props.onPingPong}>click</button>
           </Section>
         </div>
       </article>
@@ -102,10 +106,12 @@ HomePage.propTypes = {
   onSubmitForm: PropTypes.func,
   username: PropTypes.string,
   onChangeUsername: PropTypes.func,
+  onPingPong: PropTypes.func,
 };
 
 export function mapDispatchToProps(dispatch) {
   return {
+    onPingPong: () => dispatch(ping()),
     onChangeUsername: (evt) => dispatch(changeUsername(evt.target.value)),
     onSubmitForm: (evt) => {
       if (evt !== undefined && evt.preventDefault) evt.preventDefault();
@@ -125,9 +131,11 @@ const withConnect = connect(mapStateToProps, mapDispatchToProps);
 
 const withReducer = injectReducer({ key: 'home', reducer });
 const withSaga = injectSaga({ key: 'home', saga });
+const withEpic = injectEpic({ key: 'home', epic });
 
 export default compose(
   withReducer,
   withSaga,
+  withEpic,
   withConnect,
 )(HomePage);

@@ -10,3 +10,5 @@
  */
 
 export const CHANGE_USERNAME = 'boilerplate/Home/CHANGE_USERNAME';
+export const PING = 'boilerplate/Home/PING';
+export const PONG = 'boilerplate/Home/PONG';

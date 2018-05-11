@@ -17,6 +17,7 @@
 
 import {
   CHANGE_USERNAME,
+  PING,
 } from './constants';
 
 /**
@@ -30,5 +31,11 @@ export function changeUsername(name) {
   return {
     type: CHANGE_USERNAME,
     name,
+  };
+}
+
+export function ping() {
+  return {
+    type: PING,
   };
 }

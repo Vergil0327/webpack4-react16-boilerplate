@@ -1,9 +1,12 @@
-import invariant from 'invariant';
-import isEmpty from 'lodash/isEmpty';
+// import invariant from 'invariant';
+// import isEmpty from 'lodash/isEmpty';
 import checkStore from './checkStore';
 
 export function injectAsyncEpics(store, isValid) {
-  return function injectEpics({ key, epic }) {
+  return function injectEpics({
+    // key,
+    epic,
+  }) {
     if (!isValid) checkStore(store);
 
     store.epic$.next(epic);
