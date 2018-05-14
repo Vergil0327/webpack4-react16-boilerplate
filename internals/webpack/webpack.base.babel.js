@@ -43,6 +43,14 @@ module.exports = (options) => ({
         use: ['style-loader', 'css-loader'],
       },
       {
+        type: 'javascript/auto',
+        test: /\.json$/,
+        exclude: /(node_modules|bower_components)/,
+        use: {
+          loader: 'file-loader',
+        },
+      },
+      {
         test: /\.(eot|svg|otf|ttf|woff|woff2|ico)$/,
         use: 'file-loader',
       },
