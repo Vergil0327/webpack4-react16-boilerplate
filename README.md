@@ -1,11 +1,10 @@
-**NOTE: We're working hard to get a new release out that includes React v16, Enzyme v3, Webpack v4, Redux v4, and more. Please bear with us while we wait for some external dependency issues to clear and can get these updates fully vetted and released. Please feel free to use the dev branch if you'd like to use upgraded features, but know that it still hasn't been released.**
+**NOTE: Add redux-observable, Upgrade to webpack 4, React V16 & related dependencies.**
 
 <img src="https://raw.githubusercontent.com/react-boilerplate/react-boilerplate-brand/master/assets/banner-metal-optimized.jpg" alt="react boilerplate banner" align="center" />
 
 <br />
 
-<div align="center"><strong>Start your next react project in seconds</strong></div>
-<div align="center">A highly scalable, offline-first foundation with the best DX and a focus on performance and best practices</div>
+<div align="center"><strong>Clone from react-boilerplate</strong></div>
 
 <br />
 
@@ -99,11 +98,9 @@ There’s also a <a href="https://vimeo.com/168648012">fantastic video</a> on ho
 
 ## Quick start
 
-1.  Clone this repo using `git clone --depth=1 https://github.com/react-boilerplate/react-boilerplate.git`
+1.  Clone this repo using `git clone`
 2.  Move to the appropriate directory: `cd react-boilerplate`.<br />
-3.  Run `npm run setup` in order to install dependencies and clean the git repo.<br />
-    _We auto-detect `yarn` for installing packages by default, if you wish to force `npm` usage do: `USE_YARN=false npm run setup`_<br />
-    _At this point you can run `npm start` to see the example app at `http://localhost:3000`._
+3.  Run `yarn (install)` to install dependencies.<br />
 4.  Run `npm run clean` to delete the example app.
 
 Now you're ready to rumble!
