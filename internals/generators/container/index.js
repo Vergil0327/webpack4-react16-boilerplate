@@ -36,8 +36,14 @@ module.exports = {
     message: 'Do you want an actions/constants/selectors/reducer tuple for this container?',
   }, {
     type: 'confirm',
-    name: 'wantSaga',
+    name: 'wantEpic',
     default: true,
+    message: 'Do you want redux-observable for asynchronous flows? (e.g. fetching data)',
+  }, {
+    type: 'confirm',
+    name: 'wantSaga',
+    default: false,
+    when: (previosConfirmAns) => !previosConfirmAns.wantEpic,
     message: 'Do you want sagas for asynchronous flows? (e.g. fetching data)',
   }, {
     type: 'confirm',
@@ -152,6 +158,22 @@ module.exports = {
         type: 'add',
         path: '../../app/containers/{{properCase name}}/tests/saga.test.js',
         templateFile: './container/saga.test.js.hbs',
+        abortOnFail: true,
+      });
+    }
+
+    // Redux-observable
+    if (data.wantEpic) {
+      actions.push({
+        type: 'add',
+        path: '../../app/containers/{{properCase name}}/epic.js',
+        templateFile: './container/epic.js.hbs',
+        abortOnFail: true,
+      });
+      actions.push({
+        type: 'add',
+        path: '../../app/containers/{{properCase name}}/tests/epic.test.js',
+        templateFile: './container/epic.test.js.hbs',
         abortOnFail: true,
       });
     }

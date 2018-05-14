@@ -1,0 +1,9 @@
+import { ofType } from 'redux-observable';
+
+const epic = (action$) =>
+  action$.pipe(
+    ofType(/* Action Type */),
+    /* Do your async flow with RxJs & Observables */
+  );
+
+export default epic;

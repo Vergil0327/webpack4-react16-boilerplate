@@ -21,6 +21,9 @@ import { compose } from 'redux';
 {{#if wantSaga}}
 import injectSaga from 'utils/injectSaga';
 {{/if}}
+{{#if wantEpic}}
+import injectEpic from 'utils/injectEpic';
+{{/if}}
 {{#if wantActionsAndReducer}}
 import injectReducer from 'utils/injectReducer';
 import makeSelect{{properCase name}} from './selectors';
@@ -28,6 +31,9 @@ import reducer from './reducer';
 {{/if}}
 {{#if wantSaga}}
 import saga from './saga';
+{{/if}}
+{{#if wantEpic}}
+import epic from './epic';
 {{/if}}
 {{#if wantMessages}}
 import messages from './messages';
@@ -77,6 +83,9 @@ const withConnect = connect(null, mapDispatchToProps);
 {{#if wantSaga}}
 const withSaga = injectSaga({ key: '{{ camelCase name }}', saga });
 {{/if}}
+{{#if wantEpic}}
+const withEpic = injectEpic({ epic });
+{{/if}}
 
 export default compose(
 {{#if wantActionsAndReducer}}
@@ -84,6 +93,9 @@ export default compose(
 {{/if}}
 {{#if wantSaga}}
   withSaga,
+{{/if}}
+{{#if wantEpic}}
+  withEpic,
 {{/if}}
   withConnect,
 )({{ properCase name }});

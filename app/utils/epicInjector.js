@@ -1,13 +1,15 @@
-// import invariant from 'invariant';
-// import isEmpty from 'lodash/isEmpty';
+import invariant from 'invariant';
+import isEmpty from 'lodash/isEmpty';
+import isFunction from 'lodash/isFunction';
 import checkStore from './checkStore';
 
 export function injectAsyncEpics(store, isValid) {
-  return function injectEpics({
-    // key,
-    epic,
-  }) {
+  return function injectEpics({ epic }) {
     if (!isValid) checkStore(store);
+    invariant(
+      isFunction(epic) || isEmpty(epic),
+      '(app/utils...) injectSaga: Expected `epic` to be a function'
+    );
 
     store.epic$.next(epic);
   };
