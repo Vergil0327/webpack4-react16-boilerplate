@@ -38,6 +38,9 @@ if (dllPlugin) {
 }
 
 module.exports = require('./webpack.base.babel')({
+  // webpack 4 need to specify development | production mode
+  mode: 'development',
+
   // Add hot reloading in development
   entry: [
     'eventsource-polyfill', // Necessary for hot reloading with IE
@@ -49,6 +52,20 @@ module.exports = require('./webpack.base.babel')({
   output: {
     filename: '[name].js',
     chunkFilename: '[name].chunk.js',
+  },
+
+  optimization: {
+    splitChunks: {
+      chunks: 'async',
+      cacheGroups: {
+        commons: {
+          test: /[\\/]node_modules[\\/]/,
+          name: 'vendors',
+          minChunks: 2,
+        },
+      },
+    },
+    runtimeChunk: true,
   },
 
   // Add development plugins
@@ -79,12 +96,12 @@ function dependencyHandlers() {
   // If the package.json does not have a dllPlugin property, use the CommonsChunkPlugin
   if (!dllPlugin) {
     return [
-      new webpack.optimize.CommonsChunkPlugin({
-        name: 'vendor',
-        children: true,
-        minChunks: 2,
-        async: true,
-      }),
+      // new webpack.optimize.CommonsChunkPlugin({
+      //   name: 'vendor',
+      //   children: true,
+      //   minChunks: 2,
+      //   async: true,
+      // }),
     ];
   }
 
