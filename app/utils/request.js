@@ -11,7 +11,13 @@ function parseJSON(response) {
   if (response.status === 204 || response.status === 205) {
     return null;
   }
-  return response.json();
+
+  const contentType = response.headers.get('content-type');
+  if (contentType && contentType.includes('application/json')) {
+    return response.json();
+  }
+
+  return response;
 }
 
 /**
@@ -26,11 +32,30 @@ function checkStatus(response) {
     return response;
   }
 
+  const contentType = response.headers.get('content-type');
   const error = new Error(response.statusText);
+
+  if (contentType && contentType.includes('application/json')) {
+    return response.json().then((responseContent) => {
+      error.response = responseContent;
+      throw error;
+    });
+  }
+
   error.response = response;
   throw error;
 }
 
+/**
+ * @const DEFAULT_OPTIONS - fetch api default options
+ */
+const DEFAULT_OPTIONS = {
+  mode: 'cors',
+  credentials: 'include', /** enable cookies @see https://developers.google.com/web/updates/2015/03/introduction-to-fetch */
+  headers: new Headers({
+    'Content-Type': 'application/json',
+  }),
+};
 /**
  * Requests a URL, returning a promise
  *
@@ -40,7 +65,7 @@ function checkStatus(response) {
  * @return {object}           The response data
  */
 export default function request(url, options) {
-  return fetch(url, options)
+  return fetch(url, { ...DEFAULT_OPTIONS, ...options })
     .then(checkStatus)
     .then(parseJSON);
 }

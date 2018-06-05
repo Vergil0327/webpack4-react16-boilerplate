@@ -8,7 +8,7 @@ export function injectAsyncEpics(store, isValid) {
     if (!isValid) checkStore(store);
     invariant(
       isFunction(epic) || isEmpty(epic),
-      '(app/utils...) injectSaga: Expected `epic` to be a function'
+      '(app/utils...) injectEpic: Expected `epic` to be a function'
     );
 
     store.epic$.next(epic);
