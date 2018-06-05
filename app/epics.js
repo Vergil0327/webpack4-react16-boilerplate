@@ -7,8 +7,10 @@ export default function createRootEpic() {
 
   const rootEpic = (action$, store) =>
     epic$.pipe(
-      mergeMap((epic) => epic(action$, store)
-    ));
+      mergeMap(
+        (epic) => epic(action$, store)
+      )
+    );
 
   return { rootEpic, epic$ };
 }
